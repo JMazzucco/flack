@@ -1,7 +1,8 @@
 class WebhooksController < ApplicationController
-
+  skip_before_action :authenticate
+  
   def receive
-    binding.pry
+    return head :ok
   end
 
 end

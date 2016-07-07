@@ -53,4 +53,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
 
-ENV["FLACK_DOMAIN"] = "http://localhost:3000"
+ENV["FLACK_DOMAIN"] = "http://cf1bc8d9.ngrok.io"

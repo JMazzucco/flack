@@ -18,6 +18,7 @@ Bundler.require(*Rails.groups)
 
 module Flack
   class Application < Rails::Application
+    config.web_console.whitelisted_ips = ['107.23.104.115', '54.152.166.250', '107.23.149.70']
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
