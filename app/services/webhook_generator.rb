@@ -1,6 +1,6 @@
 class WebhookGenerator
 
-  def generate(client, board)
-    client.create_webhook(board)
+  def generate(client, model)
+    client.create_webhook(model)
   end
 end

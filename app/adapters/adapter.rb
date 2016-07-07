@@ -17,13 +17,17 @@ module Adapter
       end
     end
 
-    def create_webhook(board)
-      webhook_info = Trello::Webhook.create(description: board.name, callback_url: CALLBACK_URL, id_model: board.trello_id)
-      Webhook.new(trello_id: webhook_info["id"], name: webhook_info["name"], active: true, callback_url: webhook_info["callback_url"], trello_id_model: board.trello.id)
+    def create_webhook(model)
+      webhook_info = Trello::Webhook.create(description: model.name, callback_url: CALLBACK_URL, id_model: model.trello_id)
+      Webhook.new(trello_id: webhook_info["id"], name: webhook_info["name"], active: true, callback_url: webhook_info["callback_url"], trello_id_model: model.trello.id)
     end
 
     def get_board_info(short_id)
       Trello::Board.find(short_id)
+    end
+
+    def get_organization_info(short_id)
+      Trello::Organization.find(short_id)
     end
   end
 end

@@ -6,6 +6,7 @@ class CreateBoards < ActiveRecord::Migration[5.0]
       t.string :url
       t.boolean :closed
       t.string :trello_id
+      t.references :organization, index: true
       t.timestamps
     end
   end

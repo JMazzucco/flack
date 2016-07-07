@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707145059) do
+ActiveRecord::Schema.define(version: 20160707210733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20160707145059) do
     t.string   "url"
     t.boolean  "closed"
     t.string   "trello_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["organization_id"], name: "index_boards_on_organization_id", using: :btree
   end
 
   create_table "cards", force: :cascade do |t|
@@ -53,6 +55,16 @@ ActiveRecord::Schema.define(version: 20160707145059) do
     t.index ["board_id"], name: "index_lists_on_board_id", using: :btree
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string   "description"
+    t.string   "display_name"
+    t.string   "name"
+    t.string   "url"
+    t.string   "trello_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "user_boards", force: :cascade do |t|
     t.integer "user_id"
     t.integer "board_id"
@@ -71,6 +83,9 @@ ActiveRecord::Schema.define(version: 20160707145059) do
     t.string   "email"
     t.string   "slack_username"
     t.string   "trello_username"
+    t.string   "token"
+    t.string   "secret"
+    t.string   "name"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
