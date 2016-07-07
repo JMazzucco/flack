@@ -19,7 +19,7 @@ module Adapter
 
     def create_webhook(board)
       webhook_info = Trello::Webhook.create(description: board.name, callback_url: CALLBACK_URL, id_model: board.trello_id)
-      Webhook.new(id: webhook_info["id"], name: webhook_info["name"])
+      Webhook.new(trello_id: webhook_info["id"], name: webhook_info["name"], active: true, callback_url: webhook_info["callback_url"], trello_id_model: board.trello.id)
     end
 
     def get_board_info(short_id)
