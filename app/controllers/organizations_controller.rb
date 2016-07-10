@@ -1,13 +1,18 @@
 class OrganizationsController < ApplicationController
 
+  def new
+    @organization = Organization.new
+  end
+
   def create
-    client = Adapter::TrelloWrapper.new(current_user)
-    organization = OrganizationGenerator.generate(client)
+    organization = OrganizationGenerator.generate(organization_params[:trello_id])
     if organization.save
-     webhook = WebhookGenerator.generate(client, organization)
-     if webhook.save
-      #something successful happens
-     end
+      UserOrganization.create(user: current_user, organization: organization)
+      webhook = WebhookGenerator.generate(organization)
+      if webhook.save
+       #something successful happens
+       redirect_to organization_path(organization)
+      end
     else
       # some kind of flash message
     end

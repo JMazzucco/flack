@@ -3,8 +3,10 @@ class User < ApplicationRecord
   has_many :boards, through: :user_boards
   has_many :user_cards
   has_many :cards, through: :user_cards
+  has_many :user_organizations
+  has_many :organizations, through: :user_organizations
 
-  def find_or_create_from_omniauth(auth)
+  def self.find_or_create_from_omniauth(auth)
     User.find_or_create_by(uid: auth["uid"]).tap do |u|
       u.name = auth["info"]["name"]
       u.email = auth["info"]["email"]

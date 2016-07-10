@@ -5,10 +5,9 @@ class BoardsController < ApplicationController
   end
 
   def create
-    client = Adapter::TrelloWrapper.new(current_user)
-    board = BoardGenerator.generate(client, params[:trello_id])
+    board = BoardGenerator.generate(board_params[:trello_id])
     if board.save
-     webhook = WebhookGenerator.generate(client, board)
+     webhook = WebhookGenerator.generate(board)
      if webhook.save
       #something successful happens
      end

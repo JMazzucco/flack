@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160707210733) do
+ActiveRecord::Schema.define(version: 20160710145506) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,7 +79,15 @@ ActiveRecord::Schema.define(version: 20160707210733) do
     t.index ["user_id"], name: "index_user_cards_on_user_id", using: :btree
   end
 
+  create_table "user_organizations", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "organization_id"
+    t.index ["organization_id"], name: "index_user_organizations_on_organization_id", using: :btree
+    t.index ["user_id"], name: "index_user_organizations_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
+    t.string   "uid"
     t.string   "email"
     t.string   "slack_username"
     t.string   "trello_username"

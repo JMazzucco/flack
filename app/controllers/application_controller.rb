@@ -11,7 +11,12 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find(session[:id])
   end
+
   def authenticate
     redirect_to root_path unless logged_in?
+  end
+
+  def log_in(user)
+    session[:id] = user.id
   end
 end

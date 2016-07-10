@@ -1,6 +1,6 @@
 class WebhookGenerator
 
-  def generate(client, model)
-    client.create_webhook(model)
+  def self.generate(model)
+    Adapter::TrelloWrapper.create_webhook(model)
   end
 end
