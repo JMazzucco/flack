@@ -19,10 +19,12 @@ module Adapter
 
     def self.create_webhook(model)
       # webhook_info = Trello::Webhook.create(description: model.name, callback_url: CALLBACK_URL, id_model: model.trello_id)
+      binding.pry
       webhook_info = HTTParty.post("https://api.trello.com/1/tokens/#{Trello.client.oauth_token}/webhooks/?key=#{ENV["TRELLO_KEY"]}",
         :query => { description: "test", callbackURL: CALLBACK_URL, idModel: model.trello_id },
         :headers => { "Content-Type" => "application/x-www-form-urlencoded"})
-      Webhook.new(trello_id: webhook_info["id"], description: webhook_info["description"], active: true, callback_url: webhook_info["callback_url"], trello_id_model: model.trello_id)
+      binding.pry
+      Webhook.new(trello_id: webhook_info["id"], description: webhook_info["description"], active: true, callback_url: webhook_info["callbackURL"], trello_id_model: model.trello_id)
     end
 
     def self.get_board_info(trello_id)

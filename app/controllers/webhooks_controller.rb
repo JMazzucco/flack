@@ -8,21 +8,20 @@ class WebhooksController < ApplicationController
   end
 
   def receive
+    binding.pry
     # all of this is b/c payload from webhook added to org, when new board created has NO INFO about the even that trigged the payload POST
     #  So, iterate over all boards, ID new ones, create and add webhook, then, we'll need separate code to deal with payload
     #  that we get when new card/changes to board that has been hooked.   I REALLY HOPE *THAT* PAYLOAD HAS SOME BETTER INFO!!!
-    binding.pry
     org = Organization.find_by(trello_id: model_params[:id])
-    binding.pry
-    trello_org = Adapter::TrelloWraper.get_org_info(org.trello_id)
+    trello_org = Adapter::TrelloWrapper.get_org_info(org.trello_id)
     board_ids = trello_org.boards.collect {|b| b.attributes[:id]}
     new_board_ids = board_ids.select {|id| Board.find_by(trello_id: id) == nil}
     new_board_ids.each do |id|
       board = BoardGenerator.generate(id)
-      binding.pry
       if board.save
         # not sure if Trello.client will still be authenticated at this point
         webhook = WebhookGenerator.generate(board)
+        binding.pry
         if webhook.save
           # some kind of logging
         else
