@@ -8,7 +8,8 @@ class OrganizationsController < ApplicationController
     organization = OrganizationGenerator.generate(organization_params[:trello_id])
     if organization.save
       UserOrganization.create(user: current_user, organization: organization)
-      webhook = WebhookGenerator.generate(organization)
+      webhook = WebhookGenerator.generate(organization, type: "organization")
+      binding.pry
       if webhook.save
        #something successful happens
        redirect_to organization_path(organization)

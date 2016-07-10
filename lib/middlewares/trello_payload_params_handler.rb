@@ -4,10 +4,15 @@ class TrelloPayloadParamsHandler
   end
 
   def call(env)
-    params = JSON.parse(env["rack.input"].gets)
-    params["event"] = params["action"]
-    params.delete("action")
-    env["action_dispatch.request.request_parameters"] = params
+    params = env["rack.input"].gets
+    if params
+      result = JSON.parse(paramsf)
+      if result["action"]
+        result["event"] = result["action"]
+        result.delete("action")
+        env["action_dispatch.request.request_parameters"] = result
+      end
+    end
     @app.call(env)
   end
 end
