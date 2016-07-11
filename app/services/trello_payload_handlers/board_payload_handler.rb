@@ -10,7 +10,7 @@ class BoardPayloadHandler
 
   def run
     if event_type == "addToOrganizationBoard"
-      @board = Board.create_from_trello_payload(trello_id: payload_board_id, name: payload_board_name, url: payload_board_url, description: payload_board_description, organization: payload_organization)
+      @board = Board.create_from_trello_payload(trello_id: payload_board_id, name: payload_board_name, url: payload_board_url, description: payload_board_description, organization: payload_organization, creator: payload_board_creator)
       create_board_webhook
       # other events?
     end
@@ -43,6 +43,10 @@ class BoardPayloadHandler
 
   def payload_organization
     Organization.find_by(trello_id: payload["data"]["organization"]["id"])
+  end
+
+  def payload_board_creator
+    User.find_by(trello_uid: payload["event"]["memberCreator"]["id"])
   end
 end
 

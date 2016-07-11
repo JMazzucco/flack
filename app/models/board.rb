@@ -8,12 +8,13 @@ class Board < ApplicationRecord
 
   validates :trello_id, uniqueness: true, presence: true
 
-  def self.create_from_trello_payload(trello_id:, name:, url:, description:, organization:)
+  def self.create_from_trello_payload(trello_id:, name:, url:, description:, organization:, creator:)
     Board.find_or_create_by(trello_id: trello_id).tap do |board|
       board.name = name
       board.url = "http://trello.com/boards/b/#{url}/#{board.name}"
       board.description = description
       board.organization = organization
+      board.creator = creator
       board.save
     end
   end

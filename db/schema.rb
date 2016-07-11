@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160710222938) do
     t.boolean  "closed"
     t.string   "trello_id"
     t.integer  "organization_id"
+    t.string   "creator_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["organization_id"], name: "index_boards_on_organization_id", using: :btree
@@ -39,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160710222938) do
     t.text     "card_labels",     default: [],              array: true
     t.integer  "board_id"
     t.integer  "list_id"
+    t.string   "creator_id"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.index ["board_id"], name: "index_cards_on_board_id", using: :btree
@@ -50,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160710222938) do
     t.boolean  "closed"
     t.integer  "board_id"
     t.string   "trello_id"
+    t.string   "creator_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["board_id"], name: "index_lists_on_board_id", using: :btree
@@ -61,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160710222938) do
     t.string   "name"
     t.string   "url"
     t.string   "trello_id"
+    t.string   "creator_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
@@ -87,7 +91,7 @@ ActiveRecord::Schema.define(version: 20160710222938) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "uid"
+    t.string   "trello_uid"
     t.string   "email"
     t.string   "slack_username"
     t.string   "trello_username"
