@@ -5,6 +5,7 @@ class CreateLists < ActiveRecord::Migration[5.0]
       t.boolean :closed
       t.references :board, index: true
       t.string :trello_id
+      t.string :creator_id
       t.timestamps
     end
   end

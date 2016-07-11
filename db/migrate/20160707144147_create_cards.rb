@@ -12,6 +12,7 @@ class CreateCards < ActiveRecord::Migration[5.0]
       t.text :card_labels, array: true, default: []
       t.references :board, index: true
       t.references :list, index: true
+      t.string :creator_id
       t.timestamps
     end
   end

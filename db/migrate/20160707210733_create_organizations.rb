@@ -6,6 +6,7 @@ class CreateOrganizations < ActiveRecord::Migration[5.0]
       t.string :name
       t.string :url
       t.string :trello_id
+      t.string :creator_id
       t.timestamps
     end
   end
